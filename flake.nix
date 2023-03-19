@@ -10,7 +10,6 @@
     nixpkgs.url = "github:nixos/nixpkgs";
     fenix = {
       url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -20,9 +19,7 @@
         let
           pkgs = import nixpkgs {
             inherit system;
-            overlays = [
-              fenix.overlays.default
-            ];
+            overlays = [ ];
           };
         in
         {
@@ -32,7 +29,7 @@
 
               buildInputs =
                 let
-                  toolchain = with pkgs.fenix; combine [
+                  toolchain = with fenix.packages.${system}; combine [
                     (stable.withComponents [
                       "cargo"
                       "rustc"
