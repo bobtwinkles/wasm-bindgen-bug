@@ -1,3 +1,3 @@
 Demonstrates a bug in (probably?) `wasm-bindgen` where having too many attributes on a `sycamore::builder::ElementBuilder` will result in a module that `wasm-bindgen` will think doesn't have a `start` section.
 Without a `start` section, `__wbindgen_start()` isn't generated so `finalizeInit` in the resulting javascript module will never call the Rust `main`.
-To reproduce, use `bash ./repro.sh`. To se it working, edit `src/main.rs` to add fewer attributes to the builder.
+To reproduce, use `bash ./repro.sh`. This generates 2 javascript modules at `target/wasm-bindgen/debug/wasm-bindgen-bug-bad.js` good `target/wasm-bindgen/debug/wasm-bindgen-bug-good.js`. The `-bad` file will not container a call to `wasm.__wbindgen_start` while the `-good` one will.
