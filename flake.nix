@@ -21,6 +21,7 @@
             inherit system;
             overlays = [ ];
           };
+          toolchain-name = "latest";
         in
         {
           devShell =
@@ -30,13 +31,13 @@
               buildInputs =
                 let
                   toolchain = with fenix.packages.${system}; combine [
-                    (stable.withComponents [
+                    (fenix.packages.${system}.${toolchain-name}.withComponents [
                       "cargo"
                       "rustc"
                       "rust-src"
                       "rustfmt"
                     ])
-                    targets.wasm32-unknown-unknown.stable.rust-std
+                    targets.wasm32-unknown-unknown.${toolchain-name}.rust-std
                     rust-analyzer
                   ];
                 in with pkgs; [
@@ -56,7 +57,7 @@
               ];
 
               shellHook = ''
-                export RUST_SRC_PATH=${fenix.packages.${system}.stable.rust-src}/lib/rustlib/src/rust/library
+                export RUST_SRC_PATH=${fenix.packages.${system}.${toolchain-name}.rust-src}/lib/rustlib/src/rust/library
               '';
             };
 

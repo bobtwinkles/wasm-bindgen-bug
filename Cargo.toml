@@ -4,17 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [[bin]]
-name="bad"
+name="baad"
 
 [[bin]]
 name="good"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
-sycamore = "0.8"
-
-[dependencies.web-sys]
-version = "0.3"
-features = [
-]
